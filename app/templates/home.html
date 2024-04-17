@@ -2,6 +2,33 @@
 
 {%block content%}
 <br>
+{% if user.is_authenticated%}
 <h1>Welcome to home page</h1>
+<p>You are currently logged in</p>
+<br>   
+<a href="{%url 'register'%}" class="btn btn-primary">New Register</a>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ <a href="{%url 'logout'%}" class="btn btn-secondary btn-danger">Logout</a>
+{%else%}
+    <form method="POST">
+        {%csrf_token%}
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+          <input placeholder="username" name="username" type="text" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input placeholder="password" name="password" type="password" class="form-control" required>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+<br>
+<a href="{%url 'register'%}" class="btn btn-primary">New Register</a>
 
+ 
+ {%endif%}
 {%endblock%}
