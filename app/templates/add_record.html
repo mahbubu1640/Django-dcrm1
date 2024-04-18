@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{%block content%}
+
+<br>
+<h1>Add Employee Record</h1>
+<form action="" method="POST">
+    {%csrf_token%}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-secondary btn-sm">Submit</button>
+</form>
+    {% endblock %}
+   
