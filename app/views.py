@@ -75,15 +75,19 @@ def delete_view(request,pk):
     return redirect("home")
 
 def add_record(request):
-    if request.method=="POST":
-        form = RecordForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request,"Employee Added Successfully")
-            return redirect("home")
+    if request.user.is_authenticated:
+        if request.method=="POST":
+            form = RecordForm(request.POST)
+            if form.is_valid():
+                form.save()
+                messages.success(request,"Employee Added Successfully")
+                return redirect("home")
+            else:
+                messages.error(request,"Error ! Enter valid data")
+                return redirect("home")
         else:
-            messages.error(request,"Error ! Enter valid data")
-            return redirect("home")
+            form = RecordForm()
+            return render(request,"add_record.html",{'form':form})
     else:
-        form = RecordForm()
-        return render(request,"add_record.html",{'form':form})
+        messages.error(request,"You must have to Logged In to add Employee Record")
+        return redirect("home")
